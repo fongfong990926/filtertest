@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <title>filter</title>
+    <style>
+        .orderColor{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+<div ng-app="app">
+    <div  class="container" ng-controller="myCtrl">
+        <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+                <input type="text" ng-model="search.id" class="form-control" placeholder="Search">
+            </div>
+
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th ng-class="{dropup:order===''}" ng-click="changeOrder('id')">
+                        产品编号
+                        <span ng-class="{orderColor:orderType ==='id'}" class="caret"></span>
+                    </th>
+                    <th  ng-class="{dropup:order===''}"  ng-click="changeOrder('name')" class="dropdown">
+                        产品名称
+                        <span ng-class="{orderColor:orderType==='name'}"  class="caret"></span>
+                    </th>
+                    <th  ng-class="{dropup:order===''}" ng-click="changeOrder('price')"  class="dropdown">
+                        产品价钱
+                        <span ng-class="{orderColor:orderType==='price'}" class="caret" ng-class=""></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            <!--//只对id搜索 或者下面是filter：search  上面的ng-model="search.id"-->
+                <tr ng-repeat="item in productData | filter:search | orderBy:order+orderType">
+                    <td> {{item.id}}</td>
+                    <td> {{item.name}}</td>
+                    <td> {{item.price|currency: '￥'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="js/angular.min.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
